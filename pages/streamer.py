@@ -5,11 +5,20 @@ class StreamerPage(BasePage):
 
     STREAMER_STREAMER_BANNER = (By.XPATH, '//img[@class="tw-image" and contains(@alt,"Profile banner for")]')
     STREAMER_STREAMER_NAME = (By.XPATH, '//h1[contains(@class,"tw-title")]')
+    STREAMER_FIRST_VIDEO = (By.XPATH, '//button[@role="link"]/div/div/img')
 
-    # def sdefx(self, n: int):
+    REQUIRED_ELEMENTS = [
+        STREAMER_STREAMER_BANNER,
+        STREAMER_STREAMER_NAME,
+        STREAMER_FIRST_VIDEO
+    ]
 
-    def get_streamer_title(self, n: int = 1):
-        self.wait_for_visible(self.STREAMER_STREAMER_NAME)
-        el = self.get_nth_element(self.STREAMER_STREAMER_NAME, n)
+    def get_streamer_title(self):
 
-        return el.text.strip()
+        self.wait_for_page_ready()
+        self.assert_element_exists(self.STREAMER_STREAMER_BANNER)
+        self.assert_element_exists(self.STREAMER_STREAMER_NAME)
+
+        title = self.find(self.STREAMER_STREAMER_NAME).text.strip()
+
+        return title

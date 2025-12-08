@@ -2,6 +2,7 @@ import time
 import pytest
 from utils.driver_factory import create_mobile_driver
 from pages.home import HomePage
+from pages.search import SearchPage
 from pages.search_results import SearchResultsPage
 from pages.streamer import StreamerPage
 
@@ -13,35 +14,45 @@ def driver():
     driver.quit()
 
 
+def test_twitch_homepage_failing(driver):
+    home = HomePage(driver)
+    home.open_home_page()
+
+    # failing for testing purposes
+    current_url = home.get_current_url()
+    assert current_url == "https://m.twitch.tv"
+
 def test_twitch_mobile_nav(driver):
     home = HomePage(driver)
+    search = SearchPage(driver)
     results = SearchResultsPage(driver)
     streamer = StreamerPage(driver)
 
     # 1. go to twitch.tv
     home.open_home_page()
-    results.take_screenshot("home-page")
-    time.sleep(2)
+
+    # assert redirect to mobile site version
+    current_url = home.get_current_url()
+    assert current_url == "https://m.twitch.tv/?desktop-redirect=true"
 
     # 2. click in the search icon / open search bar
     home.open_search_bar()
 
     # 3. Input StarCraft II
-    home.enter_search_text("StarCraft II")
-    time.sleep(2)
+    search.enter_search_text("StarCraft II")
+    # time.sleep(2)
 
     # select first result
-    results.select_nth_starcraftii_result(1)
-    time.sleep(2)
-
+    search.select_starcraftii_category()
+    assert results.get_current_url() == "https://m.twitch.tv/directory/category/starcraft-ii"
     # 4. Scroll down two times
     results.scroll_down(times=2)
-    time.sleep(2)
+    # time.sleep(2)
 
     # 5. Select first streamer
     results_streamer_name = results.get_streamer_title()
     results.select_first_streamer()
-    time.sleep(2)
+    # time.sleep(2)
 
     # Streamer page validations
     streamer_streamer_name = streamer.get_streamer_title()

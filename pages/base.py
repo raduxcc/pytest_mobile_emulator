@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from datetime import datetime
+from pytest_html import extras
 
 
 class BasePage:
@@ -15,35 +16,50 @@ class BasePage:
         self.timeout = timeout
         self.actions = ActionChains(driver)
 
-    # # # # # # # # # #
-    # ACTION HELPERS
-    #
 
     def visit(self, url):
         self.driver.get(url)
 
+
     def find(self, locator: tuple):
         return self.driver.find_element(*locator)
+
 
     def click(self, locator: tuple):
         self.find(locator).click()
 
+
     def type_text(self, locator: tuple, text: str):
         self.find(locator).send_keys(text)
+
 
     # # @todo: apparently broken in mobile emulator. If necessary, check other sources
     # def scroll_down(self, amount=200):
     #     self.actions.scroll_by_amount(0, amount).perform()
 
+
     def js_scroll_down(self, amount=200):
         self.driver.execute_script("window.scrollBy(0, arguments[0]);", amount)
+
 
     def wait_seconds(self, seconds: float):
         time.sleep(seconds)
 
-    # # # # # # # # # #
-    # VALIDATION HELPERS
-    #
+
+    # reliable DOM ready state conditional wait
+    def wait_for_page_ready(self, timeout : int = 10):
+        timeout = timeout or self.timeout
+        for locator in self.REQUIRED_ELEMENTS:
+            try:
+                WebDriverWait(self.driver, timeout).until(
+                    EC.presence_of_element_located(locator)
+                )
+            except TimeoutException:
+                raise AssertionError(
+                    f"Page did not load required element: {locator} on {self.__class__.__name__}"
+                )
+        return True
+
 
     def wait_for_visible(self, locator: tuple):
         try:
@@ -53,9 +69,6 @@ class BasePage:
         except TimeoutException:
             raise AssertionError(f"Element not visible: {locator}")
 
-    def assert_visible(self, locator: tuple):
-        if not self.is_visible(locator):
-            raise AssertionError(f"Expected element to be visible: {locator}")
 
     def is_visible(self, locator: tuple):
         try:
@@ -63,6 +76,8 @@ class BasePage:
         except NoSuchElementException:
             return False
 
+
+    # @todo: add selector aliases
     def assert_element_exists(self, locator, message=""):
         elements = self.driver.find_elements(*locator)
         if len(elements) == 0:
@@ -72,17 +87,8 @@ class BasePage:
         self.step_pass(f"Element exists: {locator}")
         return True
 
-    def assert_equal(self, actual, expected, message=""):
-        if actual != expected:
-            msg = f"{message} | Expected={expected}, Actual={actual}"
-            self._fail_with_screenshot(msg)
-
-        self.step_pass(f"Values are equal: {actual} == {expected}")
-        return True
 
     # returns the n-th WebElement from a list of elements matching the provided xpath
-    # def get_nth_element(self, xpath: tuple[str, str], n: int):
-    #     elements = self.wait.until(EC.presence_of_all_elements_located(xpath))
     def get_nth_element(self, locator: tuple, n: int):
         elements = self.wait.until(EC.presence_of_all_elements_located(locator))
 
@@ -93,6 +99,7 @@ class BasePage:
 
         return elements[n - 1]
 
+
     def take_screenshot(self, name_prefix: str = "screenshot"):
         os.makedirs("test_report", exist_ok=True)
         os.makedirs(f"test_report/assets", exist_ok=True)
@@ -102,44 +109,25 @@ class BasePage:
         self.driver.save_screenshot(filepath)
         return filepath
 
-    # def get_text(self, locator):
-    #     """Extract visible text from a locator and return it."""
-    #     el = self.wait.until(EC.visibility_of_element_located(locator))
-    #     text = el.text.strip()
-    #
-    #     return text
-
-
-    # # # # # # # # # #
     # STEP LOGGING
-    #
+
     def _add_report_extra(self, extra):
-        """Store extra items until pytest attaches them in the hook."""
         if not hasattr(self.driver, "_pytest_report_extras"):
             self.driver._pytest_report_extras = []
         self.driver._pytest_report_extras.append(extra)
-
-    # def step(self, message: str):
-    #     log_msg = f"[STEP PASS] {message}"
-    #     print(log_msg)
-    #
-    #     from pytest_html import extras
-    #     self._add_report_extra(extras.text(log_msg))
-    #
-    #     return True
 
     def step(self, message: str):
         page = self.__class__.__name__
         log_msg = f"[STEP PASS] {message} on {page}"
         print(log_msg)
-
-        from pytest_html import extras
         self._add_report_extra(extras.text(log_msg))
 
         return True
 
+
     def step_pass(self, message: str = "Assertion passed"):
         return self.step(message)
+
 
     def _fail_with_screenshot(self, message: str):
         test_report_older_path = "test_report"

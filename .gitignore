@@ -1,8 +1,9 @@
 .idea
 .venv
-tests/test_report
 .pytest_cache
 __pycache__/
 pages/__pycache__/
 tests/__pycache__/
 utils/__pycache__/
+tests/test_report
+test_report
