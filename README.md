@@ -46,12 +46,14 @@ Running tests:
 
 
 Test run GIF ( https://postimg.cc/rKNJLPgX )
-![Navigation test demo file](https://github.com/raduxcc/pytest_mobile_emulator/tree/main/demo/fe_twitch_nav.gif)
+
+![Navigation test demo file](./demo/fe_twitch_nav.gif)
+
 
 [//]: # ([![fe-twitch-nav.gif]&#40;https://i.postimg.cc/xTWFLrzC/fe-twitch-nav.gif&#41;]&#40;https://postimg.cc/rKNJLPgX&#41;)
 
 
 Test report GIF ( https://postimg.cc/xkMGtpXB )
-![Test report demo file](https://github.com/raduxcc/pytest_mobile_emulator/tree/main/demo/fe_test_report.gif)
+![Test report demo file](./demo/fe_test_report.gif)
 
 [//]: # ([![fe-test-report.gif]&#40;https://i.postimg.cc/k5hjMkqM/fe-test-report.gif&#41;]&#40;https://postimg.cc/xkMGtpXB&#41;)
