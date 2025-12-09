@@ -18,9 +18,12 @@ class SearchPage(BasePage):
         self.click(self.SEARCH_BAR)
 
         self.type_text(self.SEARCH_BAR, text)
+        # self.wait_seconds(1)
+
 
     def select_starcraftii_category(self):
         self.wait_for_visible(self.SEARCH_CATEGORY_STARCRAFTII)
         self.assert_element_exists(self.SEARCH_CATEGORY_STARCRAFTII)
         self.click(self.SEARCH_CATEGORY_STARCRAFTII)
+        # self.wait_seconds(1)
 

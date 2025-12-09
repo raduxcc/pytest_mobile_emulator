@@ -21,6 +21,7 @@ class HomePage(BasePage):
         # handle cookie policy
         self.assert_element_exists(self.ACCEPT_COOKIE)
         self.click(self.ACCEPT_COOKIE)
+        # self.wait_seconds(2)
 
     def get_current_url(self):
         return self.driver.current_url

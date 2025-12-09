@@ -1,4 +1,4 @@
-Front-end test framework based on Selenium and Pytest
+Light front-end test framework based on Selenium and Pytest
 
 It provides:
 - Mobile emulation
@@ -10,25 +10,24 @@ It provides:
 Project structure:
 ```
 ├── pages/
-│   ├── base.py
-│   ├── home.py
-│   ├── search.py
-│   ├── search_results.py
-│   └── streamer.py
+│   ├── base.py                   # BasePage with common methods, assertions, waits, and logging
+│   ├── home.py                   # Home page object (search bar, browse button, etc.)
+│   ├── search.py                 # Search page page object
+│   ├── search_results.py         # Search results page object
+│   └── streamer.py               # Streamer-specific page object
 │
-├── test_report/  #auto generated upon test run 
-│   ├── assets
-│   └── report.html
+├── test_report/                  # Auto-generated after each test run
+│   ├── assets/                   # Screenshots and other media captured during tests
+│   └── report.html               # Pytest HTML report containing test run data and screenshots for failed scenarios
 │
 ├── tests/
-│   └── test_twitch_mobile_nav.py
+│   └── test_twitch_mobile_nav.py  # Test scenario for twitch.tv mobile navigation
 │
 ├── utils/
-│   └── driver_factory.py
+│   └── driver_factory.py          # Driver setup
 │
-├── conftest.py
-├── pytest.ini
-└── requirements.txt
+├── conftest.py                    # Pytest hooks and fixtures
+└── pytest.ini                     # Pytest configuration
 ```
 
 Running tests:
@@ -36,3 +35,13 @@ Running tests:
 >pip install -r requirements.txt
 2) to run all tests:
 >pytest
+
+
+Test run:
+
+[![fe-twitch-nav.gif](https://i.postimg.cc/xTWFLrzC/fe-twitch-nav.gif)](https://postimg.cc/rKNJLPgX)
+
+
+Test report:
+
+[![fe-test-report.gif](https://i.postimg.cc/k5hjMkqM/fe-test-report.gif)](https://postimg.cc/xkMGtpXB)

@@ -18,8 +18,8 @@ def test_twitch_homepage_failing(driver):
     home = HomePage(driver)
     home.open_home_page()
 
-    # failing for testing purposes
     current_url = home.get_current_url()
+    # failing intentionally to test screenshot embedding into html report
     assert current_url == "https://m.twitch.tv"
 
 def test_twitch_mobile_nav(driver):
@@ -40,19 +40,16 @@ def test_twitch_mobile_nav(driver):
 
     # 3. Input StarCraft II
     search.enter_search_text("StarCraft II")
-    # time.sleep(2)
 
     # select first result
     search.select_starcraftii_category()
     assert results.get_current_url() == "https://m.twitch.tv/directory/category/starcraft-ii"
     # 4. Scroll down two times
     results.scroll_down(times=2)
-    # time.sleep(2)
 
     # 5. Select first streamer
     results_streamer_name = results.get_streamer_title()
     results.select_first_streamer()
-    # time.sleep(2)
 
     # Streamer page validations
     streamer_streamer_name = streamer.get_streamer_title()

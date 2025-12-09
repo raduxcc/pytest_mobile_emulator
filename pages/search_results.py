@@ -14,9 +14,9 @@ class SearchResultsPage(BasePage):
 
     def scroll_down(self, times: int = 2, amount: float = 200):
         for _ in range(times):
-            self.wait_seconds(2)
+            # self.wait_seconds(1)
             self.js_scroll_down(amount)
-            # self.wait_seconds(2)
+            # self.wait_seconds(1)
 
     def get_current_url(self):
         return self.driver.current_url
@@ -32,8 +32,8 @@ class SearchResultsPage(BasePage):
 
     def select_first_streamer(self, n: int = 1):
         # self.wait_for_visible(self.RESULTS_STREAMERS_PROFILE_PIC)
+        self.wait_seconds(1)
 
         self.wait_for_visible(self.RESULTS_VIDEOS)
         self.assert_element_exists(self.RESULTS_STREAMERS_PROFILE_PIC)
-        self.wait_seconds(1)
         self.get_nth_element(self.RESULTS_STREAMERS_PROFILE_PIC, n).click()
