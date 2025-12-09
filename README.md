@@ -38,22 +38,24 @@ It provides:
 └── pytest.ini                     # Pytest configuration
 ```
 
-Running tests:
+### Running tests:
 1) install dependencies:
 >pip install -r requirements.txt
-2) to run all tests:
+2) run all tests:
 >pytest
+3) run particular test:
+>pytest tests/test_twitch_mobile_nav.py
 
 
-Test run GIF ( https://postimg.cc/rKNJLPgX )
+### Test run demo (GIF) ( alternative URL: https://postimg.cc/rKNJLPgX )
 
 ![Navigation test demo file](./demo/fe_twitch_nav.gif)
 
 
-[//]: # ([![fe-twitch-nav.gif]&#40;https://i.postimg.cc/xTWFLrzC/fe-twitch-nav.gif&#41;]&#40;https://postimg.cc/rKNJLPgX&#41;)
+### Test report demo (GIF) ( alternative URL: https://postimg.cc/xkMGtpXB )
 
-
-Test report GIF ( https://postimg.cc/xkMGtpXB )
 ![Test report demo file](./demo/fe_test_report.gif)
 
+
+[//]: # ([![fe-twitch-nav.gif]&#40;https://i.postimg.cc/xTWFLrzC/fe-twitch-nav.gif&#41;]&#40;https://postimg.cc/rKNJLPgX&#41;)
 [//]: # ([![fe-test-report.gif]&#40;https://i.postimg.cc/k5hjMkqM/fe-test-report.gif&#41;]&#40;https://postimg.cc/xkMGtpXB&#41;)
