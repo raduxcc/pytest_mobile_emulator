@@ -1,4 +1,10 @@
-Light front-end test framework based on Selenium and Pytest
+# Light front-end test framework based on Selenium and Pytest
+
+Tech stack:
+- Selenium
+- Pytest
+- webdriver-manager: to auto-download and manage the correct ChromeDriver version
+- Pytest-HTML: to auto-generate HTML test reports after each test run
 
 It provides:
 - Mobile emulation
@@ -7,7 +13,9 @@ It provides:
 - Basic step logs (stdout)
 - HTML test report with embedded failure screenshots
 
-Project structure:
+
+## Project structure:
+
 ```
 ├── pages/
 │   ├── base.py                   # BasePage with common methods, assertions, waits, and logging
