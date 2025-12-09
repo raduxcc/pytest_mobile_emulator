@@ -45,11 +45,11 @@ Running tests:
 >pytest
 
 
-Test run:
+Test run GIF ( https://postimg.cc/rKNJLPgX )
 
 [![fe-twitch-nav.gif](https://i.postimg.cc/xTWFLrzC/fe-twitch-nav.gif)](https://postimg.cc/rKNJLPgX)
 
 
-Test report:
+Test report GIF ( https://postimg.cc/xkMGtpXB )
 
 [![fe-test-report.gif](https://i.postimg.cc/k5hjMkqM/fe-test-report.gif)](https://postimg.cc/xkMGtpXB)
