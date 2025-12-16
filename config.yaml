@@ -1,0 +1,31 @@
+environments:
+  dev:
+    base_url: "https://twitch.tv"
+    chrome_binary: "C:/Program Files/Google/Chrome/Application/chrome.exe"
+
+  prod:
+    base_url: "https://twitch.tv"
+    chrome_binary: "C:/Program Files/Google/Chrome/Application/chrome.exe"
+
+selenium:
+  grid:
+    enabled: false
+    url: "http://localhost:4444/wd/hub"
+
+mobile:
+  default_device: "Pixel 7"
+
+default_browser: "chrome"
+
+browser_mode:
+  headless: false
+
+window_size:
+  width: 500
+  height: 1100
+
+timeouts:
+  implicit_wait: 0
+  explicit_wait: 10
+
+default_env: "dev"

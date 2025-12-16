@@ -14,7 +14,7 @@ class SearchResultsPage(BasePage):
 
     def scroll_down(self, times: int = 2, amount: float = 200):
         for _ in range(times):
-            # self.wait_seconds(1)
+            self.wait_seconds(2)
             self.js_scroll_down(amount)
             # self.wait_seconds(1)
 
